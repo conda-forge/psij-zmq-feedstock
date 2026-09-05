@@ -33,7 +33,10 @@ tests:
       imports:
         - psij
       pip_check: false
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
 about:
   summary: This is an implementation of the PSI/J (Portable Submission Interface for Jobs)
   license: MIT

@@ -1,0 +1,48 @@
+schema_version: 1
+
+context:
+  name: psij-zmq
+  version: "0.5.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/psij-zmq-${{ version }}.tar.gz
+  sha256: 46d762e650558c57d9303a0e4f3b03cd8c64f957876eea8d7273bf5522c53dee
+
+build:
+  number: 3
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools <80
+  run:
+    - python >=${{ python_min }}
+    - psij-python
+    - pyzmq
+    - radical.utils
+
+tests:
+  - python:
+      imports:
+        - psij
+      pip_check: false
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
+about:
+  summary: This is an implementation of the PSI/J (Portable Submission Interface for Jobs)
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/exaworks/psij-zmq
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
